@@ -1,6 +1,5 @@
-import { Controller, Get, Post, Body, HttpCode, Delete, Param, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Body, Delete, Param, Res} from '@nestjs/common';
 import { UserService} from './user.service';
-import {User} from './user.entity';
 import { Response } from 'express';
  
 @Controller('users')
@@ -8,14 +7,29 @@ export class UserController {
     constructor(private readonly userService: UserService){}
  
     @Get('all')
-    async getAll():Promise<User[]>{
-        return await this.userService.findAll();
+    async getAll(@Res() res: Response){
+        const user = await this.userService.findAll();
+        if(user === undefined || user.length == 0)
+        {
+            res.status(404).json({message:'Users not found'});
+        }
+        else
+        {
+            res.status(200).json({message:'Users fetched successfully', data: user});
+        }
     }
 
     @Get(':id')
     async getUserbyId(@Param('id') id, @Res() res: Response){
         const user = await this.userService.findUserbyId(id);
-        res.status(200).json({message:'User fetched successfully', data: user})
+        if(user === undefined || user.length == 0)
+        {
+            res.status(404).json({message:'User not found'});
+        }
+        else
+        {
+            res.status(200).json({message:'User fetched successfully', data: user});
+        }
     }
 
     @Post('add')
