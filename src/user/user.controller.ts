@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Delete, Param, Res} from '@nestjs/common';
+import { Controller, Get, Post, Body, Delete, Param, Res, Patch} from '@nestjs/common';
 import { UserService} from './user.service';
 import { Response } from 'express';
  
@@ -38,10 +38,10 @@ export class UserController {
         res.status(200).json({message:'User created successfully'});
     }
 
-    @Post('update')
-    updateUser(@Body() userUpdate:any, @Res() res: Response){
-	    this.userService.update(userUpdate);
-        res.status(200).json('User updated');
+    @Patch('update/:id')
+    updateUser(@Param('id') id, @Body() userUpdate:any, @Res() res: Response){
+	    this.userService.update(id, userUpdate);
+        res.status(200).json({message:'User updated successfully', data: {id:id}});
     }
 
     @Delete('delete/:id')
