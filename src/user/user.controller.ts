@@ -12,6 +12,12 @@ export class UserController {
         return await this.userService.findAll();
     }
 
+    @Get(':id')
+    async getUserbyId(@Param('id') id, @Res() res: Response){
+        const user = await this.userService.findUserbyId(id);
+        res.status(200).json({message:'User fetched successfully', data: user})
+    }
+
     @Post('add')
     createUser(@Body() addUser:any, @Res() res: Response){
 	    this.userService.create(addUser);
