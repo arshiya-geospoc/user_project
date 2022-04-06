@@ -35,7 +35,7 @@ export class UserController {
     @Post('add')
     createUser(@Body() addUser:any, @Res() res: Response){
 	    this.userService.create(addUser);
-        res.status(201).json('User created');
+        res.status(200).json({message:'User created successfully'});
     }
 
     @Post('update')
@@ -47,7 +47,7 @@ export class UserController {
     @Delete('delete/:id')
     deleteUser(@Param('id') id, @Res() res: Response){
 	    this.userService.delete(id);
-        res.status(200).json('User deleted');
+        res.status(200).json({message:'User deleted successfully', data: {id:id}});
     }
 
 }
