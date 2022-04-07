@@ -11,12 +11,16 @@ export class UserService {
         return this.userRepo.find();
     }
 
+    findUserbyId(id): Promise<User[]> {
+        return this.userRepo.find({where:{id:id}});
+    }
+
     create(addUser){
         this.userRepo.insert(addUser)
     }
 
-    update(userUpdate){
-        this.userRepo.update(userUpdate.id,userUpdate);
+    update(id, userUpdate){
+        this.userRepo.update(id,userUpdate);
     }
 
     delete(id){
