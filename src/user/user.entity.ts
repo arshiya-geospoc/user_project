@@ -1,17 +1,21 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number;
  
-  @Column()
+  @IsNotEmpty()
+  @IsString()
   username: string;
  
-  @Column()
+  @IsNotEmpty()
+  @IsEmail()
   email: String;
 
-  @Column()
+  @IsNotEmpty()
+  @IsNotEmpty()
   password: String;
  
 }
