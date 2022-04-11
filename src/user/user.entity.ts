@@ -10,5 +10,8 @@ export class User {
  
   @Column()
   email: String;
+
+  @Column()
+  password: String;
  
 }

@@ -15,6 +15,10 @@ export class UserService {
         return this.userRepo.find({where:{id:id}});
     }
 
+    async findUser(username: string): Promise<User[]> {
+        return this.userRepo.find({where:{username}});
+      }
+
     create(addUser){
         this.userRepo.insert(addUser)
     }
